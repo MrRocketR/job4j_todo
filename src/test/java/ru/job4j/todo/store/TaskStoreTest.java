@@ -9,6 +9,7 @@ import ru.job4j.todo.repository.TaskStore;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 
@@ -49,9 +50,7 @@ public class TaskStoreTest {
         store.create(taskDone3);
         List<Task> expected = List.of(taskDone1, taskNew1, taskDone2, taskNew2, taskDone3);
         List<Task> actual = store.showALL();
-        Task findDb = store.findById(taskDone1.getId());
         Assert.assertEquals(expected, actual);
-        Assert.assertEquals(taskDone1, findDb);
 
     }
 
@@ -78,11 +77,22 @@ public class TaskStoreTest {
         store.create(taskDone2);
         store.create(taskNew2);
         List<Task> expectedDone = List.of(taskDone1, taskDone2);
-        List<Task> actualDone = store.showDone();
+        List<Task> actualDone = store.showWithStatus(true);
         Assert.assertEquals(expectedDone, actualDone);
         List<Task> expectedNew = List.of(taskNew1, taskNew2);
-        List<Task> actualNew = store.showNew();
+        List<Task> actualNew = store.showWithStatus(false);
         Assert.assertEquals(expectedNew, actualNew);
+        truncate();
+
+    }
+
+    @Test
+    public void whenShowDoneAndFindById() {
+        store.create(taskNew1);
+        store.done(taskNew1.getId());
+        Optional<Task> expected = store.findById(taskNew1.getId());
+        Assert.assertEquals(taskNew1, expected.get());
+        Assert.assertTrue(expected.get().isDone());
         truncate();
 
     }

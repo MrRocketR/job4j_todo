@@ -49,7 +49,7 @@
             <tr th:each="task: ${tasks}">
                 <td>
                    <span  th:text="${task.id}" ></span>
-                    <a th:href="@{|/formUpdateTask/${task.id}|}">
+                    <a th:href="@{|/formTask/${task.id}|}">
                         <i class="fa fa-edit"></i>
                     </a>
                 </td>

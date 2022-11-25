@@ -7,9 +7,11 @@ import ru.job4j.todo.model.Task;
 import ru.job4j.todo.service.TaskService;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 
 @Controller
+
 public class TaskController {
     private final TaskService service;
 
@@ -43,20 +45,21 @@ public class TaskController {
 
     @GetMapping("/formUpdateTask/{taskId}")
     public String updatePageForm(Model model, @PathVariable("taskId") int id) {
-
-        model.addAttribute("task", service.findById(id));
-        List<Boolean> statusList = new ArrayList<>();
-        statusList.add(true);
-        statusList.add(false);
-        model.addAttribute("statuses", statusList);
+        Optional<Task> taskById = service.findById(id);
+        model.addAttribute("task", taskById.get());
         return "updateTask";
+    }
+
+    @GetMapping("/formTask/{taskId}")
+    public String taskForm(Model model,  @PathVariable("taskId") int id) {
+        Optional<Task> taskById = service.findById(id);
+        model.addAttribute("task", taskById.get());
+        return "task";
     }
 
 
     @PostMapping("/updateAction")
-    public String updateAction(@ModelAttribute Task task, @RequestParam("id") int id,
-                               @RequestParam("status") boolean status) {
-        task.setDone(status);
+    public String updateAction(@ModelAttribute Task task, @RequestParam("id") int id) {
         service.updateTask(id, task);
         return "redirect:/tasks";
     }
@@ -67,15 +70,21 @@ public class TaskController {
         return "redirect:/tasks";
     }
 
+    @GetMapping("/formDoneTask/{taskId}")
+    public String doneAction(@PathVariable("taskId") int id) {
+        service.setDoneTask(id);
+        return "redirect:/tasks";
+    }
+
     @GetMapping("/oldTasks")
     public String showDonePage(Model model) {
-        model.addAttribute("tasks", service.showDone());
+        model.addAttribute("tasks", service.showWithStatus(true));
         return "oldTasks";
     }
 
     @GetMapping("/newTasks")
     public String showNewPage(Model model) {
-        model.addAttribute("tasks", service.showNew());
+        model.addAttribute("tasks", service.showWithStatus(false));
         return "newTasks";
     }
 

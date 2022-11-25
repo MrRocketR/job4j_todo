@@ -5,6 +5,7 @@ import ru.job4j.todo.model.Task;
 import ru.job4j.todo.repository.TaskStore;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class TaskService {
@@ -33,15 +34,15 @@ public class TaskService {
         return store.showALL();
     }
 
-    public List<Task> showDone() {
-        return store.showDone();
+    public List<Task> showWithStatus(boolean status) {
+        return store.showWithStatus(status);
     }
 
-    public List<Task> showNew() {
-        return store.showNew();
+    public void setDoneTask(int id) {
+        store.done(id);
     }
 
-    public Task findById(int id) {
+    public Optional<Task> findById(int id) {
         return store.findById(id);
     }
 }

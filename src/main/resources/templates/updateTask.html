@@ -47,16 +47,7 @@
                     <div class="form-group">
                         <label for="description">New description</label>
                         <input type="text" class="form-control" name="name" id="description" th:field="*{description}">
-                        <div class="form-group">
-                            <label for="status">Status</label>
-                            <select class="form-control" id="status" name="status">
-                                <option th:each="status : ${statuses}" th:value="${status}" th:text="${status}"></option>
-                            </select>
-                            <a th:href="@{|/formDeleteTask/${task.id}|}">Delete Task</a>
-                        </div>
                     </div>
-
-
                     <button type="submit" class="btn btn-primary">Сохранить</button>
                 </form>
             </div>

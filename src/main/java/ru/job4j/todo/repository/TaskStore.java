@@ -17,16 +17,17 @@ public class TaskStore {
 
     private final SessionFactory sf;
 
-    private final static String UPDATE = "UPDATE Task as t SET  t.description = :fDescription, "
-            + "t.created = :fCreated, t.done = :fDone WHERE  t.id = :fId";
+    private final static String UPDATE = "UPDATE Task as t SET  t.description = :fDescription "
+            + "WHERE  t.id = :fId";
 
     private final static String SHOW_ALL = "from Task";
 
     private final static String DELETE = "DELETE Task as t where t.id = :fId";
-    private final static  String SHOW_DONE = "from Task where done = true order by id";
-    private final static String SHOW_NEW = "from Task where done = false order by id";
+    private final static  String SHOW_WITH_STATUS = "from Task where done = :fDone order by id";
 
     private final static String FIND_BY_ID = "from Task where id = :fId";
+
+    private final static String DONE = "UPDATE Task as t SET t.done = true where t.id = :fId";
 
     public Task create(Task task) {
         Session session = sf.openSession();
@@ -49,8 +50,6 @@ public class TaskStore {
             session.beginTransaction();
             res = session.createQuery(UPDATE)
                     .setParameter("fDescription", task.getDescription())
-                    .setParameter("fCreated", task.getCreated())
-                    .setParameter("fDone", task.isDone())
                     .setParameter("fId", id)
                             .executeUpdate();
             session.getTransaction().commit();
@@ -59,6 +58,20 @@ public class TaskStore {
         }
         session.close();
         return res == 1;
+    }
+
+    public void done(int id) {
+        Session session = sf.openSession();
+        try {
+            session.beginTransaction();
+            session.createQuery(DONE)
+                    .setParameter("fId", id)
+                    .executeUpdate();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            session.getTransaction().rollback();
+        }
+        session.close();
     }
 
 
@@ -83,16 +96,10 @@ public class TaskStore {
 
 
 
-    public List<Task> showDone() {
+    public List<Task> showWithStatus(boolean status) {
         Session session = sf.openSession();
-            List<Task> list = session.createQuery(SHOW_DONE, Task.class).list();
-        session.close();
-        return list;
-    }
-
-    public List<Task> showNew() {
-        Session session = sf.openSession();
-        List<Task> list = session.createQuery(SHOW_NEW, Task.class).list();
+        List<Task> list = session.createQuery(SHOW_WITH_STATUS, Task.class)
+                .setParameter("fDone", status).list();
         session.close();
         return list;
     }
@@ -104,13 +111,13 @@ public class TaskStore {
         return list;
     }
 
-    public Task findById(int id) {
+    public Optional<Task> findById(int id) {
         Session session = sf.openSession();
 
         Query<Task> query = session.createQuery(
                 FIND_BY_ID, Task.class);
         query.setParameter("fId", id);
-        Task task = query.uniqueResult();
+        Optional<Task> task = query.uniqueResultOptional();
         session.close();
         return task;
     }

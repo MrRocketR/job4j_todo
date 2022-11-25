@@ -43,6 +43,7 @@
 ### Страницы добавления и редактирования:
 ![](img/add.png)
 ![](img/update.png)
+![](img/task.png)
 
 
 
@@ -97,5 +98,6 @@ Build the project and run the Spring Boot application
 #### Add and edit pages:
 ![](img/add.png)
 ![](img/update.png)
+![](img/task.png)
 
 If you have any questions about this project, please email me at kuptsovns@gmail.com

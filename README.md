@@ -7,6 +7,7 @@
 - Thymeleaf,
 - Bootstrap,
 - PostgreSQL 42.2.9
+- h2database 2.1.214
 - hibernate 5.6.11
 - lombok 1.18.22
 - Junit 4.13.2
@@ -61,6 +62,7 @@ Technologies used in the project:
 - Thymeleaf,
 - Bootstrap,
 - PostgreSQL 42.2.9
+- h2database 2.1.214
 - hibernate 5.6.11
 - lombok 1.18.22
 - Junit 4.13.2

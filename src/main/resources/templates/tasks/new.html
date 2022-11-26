@@ -20,29 +20,29 @@
     <title>TODO List</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#">All Tasks</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" th:href="@{/tasks}">Tasks</a>
-                <a class="nav-item nav-link" th:href="@{/addTask}">Add Task</a>
-                <a class="nav-item nav-link" th:href="@{/newTasks}">Show New Tasks</a>
-                <a class="nav-item nav-link" th:href="@{/oldTasks}">Show Old Tasks</a>
-                <a class="nav-item nav-link" th:href="@{/regUser}">Registration</a>
-                <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Sign In</span>
-                </a>
-                <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
-                    <span th:text="${user.name}"></span>
-                    <span> | Sign Out</span>
-                </a>
-            </div>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="#">New Tasks</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+            <a class="nav-item nav-link" th:href="@{table}">Tasks</a>
+            <a class="nav-item nav-link" th:href="@{add}">Add Task</a>
+            <a class="nav-item nav-link" th:href="@{new}">Show New Tasks</a>
+            <a class="nav-item nav-link" th:href="@{old}">Show Old Tasks</a>
+            <a class="nav-item nav-link" th:href="@{regUser}">Registration</a>
+            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{loginPage}">
+                <span th:text="${user.name}"></span>
+                <span> | Sign In</span>
+            </a>
+            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{logout}">
+                <span th:text="${user.name}"></span>
+                <span> | Sign Out</span>
+            </a>
         </div>
-    </nav>
+    </div>
+</nav>
 <div class="container">
     <div class="row">
         <table class="table">
@@ -57,8 +57,8 @@
             <tbody>
             <tr th:each="task: ${tasks}">
                 <td>
-                   <span  th:text="${task.id}" ></span>
-                    <a th:href="@{|/formTask/${task.id}|}">
+                    <span  th:text="${task.id}" ></span>
+                    <a th:href="@{|formTask/${task.id}|}">
                         <i class="fa fa-edit"></i>
                     </a>
                 </td>

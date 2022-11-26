@@ -35,6 +35,10 @@
     mvn spring-boot:run
 ```
 
+### Страницы с авторизацией и аутентификацией пользователя:
+![](img/login.png)
+![](img/reg.png)
+
 ### Основная страница со списком дел:
 ![](img/tasks.png)
 ![](img/new.png)
@@ -90,6 +94,10 @@ Build the project and run the Spring Boot application
     mvn spring-boot:run
 ```
 
+
+### Pages with user authorization and authentication:
+![](img/login.png)
+![](img/reg.png)
 
 #### Main to-do list page:
 ![](img/tasks.png)

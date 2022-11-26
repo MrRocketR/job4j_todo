@@ -2,10 +2,7 @@ package ru.job4j.todo.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.User;
 import ru.job4j.todo.repository.UserStore;
 import ru.job4j.todo.service.UserService;
@@ -15,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
+@RequestMapping("/users")
 public class UserController {
 
     private final UserService userService;
@@ -23,13 +21,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/regUser")
+    @GetMapping("regUser")
     public String regUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
         return "regUser";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("registration")
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.createUser(user);
         if (regUser.isEmpty()) {
@@ -38,13 +36,13 @@ public class UserController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/loginPage")
+    @GetMapping("loginPage")
     public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
         return "login";
     }
 
-    @PostMapping("/login")
+    @PostMapping("login")
     public String login(@ModelAttribute User user, HttpServletRequest request) {
         Optional<User> userDb = userService.findUser(user.getLogin(),
                 user.getPassword());
@@ -56,7 +54,7 @@ public class UserController {
         return "redirect:/tasks";
     }
 
-    @GetMapping("/logout")
+    @GetMapping("logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "redirect:/loginPage";

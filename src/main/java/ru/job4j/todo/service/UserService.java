@@ -21,7 +21,7 @@ public class UserService {
 
     }
 
-    public Optional<User> findByLoginAndPassport(String login, String password) {
-        return store.findByLoginAndPassport(login, password);
+    public Optional<User> findUser(String login, String password) {
+        return store.findByLoginAndPassword(login, password);
     }
 }

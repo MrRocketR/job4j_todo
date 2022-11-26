@@ -35,7 +35,7 @@ public class UserStore {
 
     }
 
-    public Optional<User> findByLoginAndPassport(String login, String password) {
+    public Optional<User> findByLoginAndPassword(String login, String password) {
         Session session = sf.openSession();
         Query<User> query = session.createQuery(
                 FIND, User.class);

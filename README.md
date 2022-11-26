@@ -10,7 +10,7 @@
 - h2database 2.1.214
 - hibernate 5.6.11
 - lombok 1.18.22
-- Junit 4.13.2
+- Junit 5.9.0
 - Hamcrest 1.3
 - Mockito 4.0.0
 - checkstyle-plugin 3.1.2

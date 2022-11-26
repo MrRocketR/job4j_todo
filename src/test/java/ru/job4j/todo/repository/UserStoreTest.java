@@ -2,10 +2,10 @@ package ru.job4j.todo.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.junit.After;
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 import ru.job4j.todo.Main;
 import ru.job4j.todo.model.User;
 
@@ -17,9 +17,9 @@ public class UserStoreTest {
 
     private static SessionFactory sessionFactory;
 
-    @BeforeClass
+    @BeforeAll
     public static void setConnection() {
-        sessionFactory = new Main().sf();
+       sessionFactory = new Main().sf();
 
     }
 
@@ -28,19 +28,19 @@ public class UserStoreTest {
         UserStore store = new UserStore(sessionFactory);
         User userTest1 = new User(1, "Tester1", "test1", "test1");
         Optional<User> userPresent = store.create(userTest1);
-        Assert.assertTrue(userPresent.isPresent());
-        Optional<User> found = store.findByLoginAndPassport(userTest1.getLogin(), userTest1.getPassword());
-        Assert.assertEquals(userTest1, found.get());
+         Assertions.assertTrue(userPresent.isPresent());
+        Optional<User> found = store.findByLoginAndPassword(userTest1.getLogin(), userTest1.getPassword());
+        Assertions.assertEquals(userTest1, found.get());
     }
 
     @Test
     public void whenUserIsNotPresent() {
         UserStore store = new UserStore(sessionFactory);
-        Optional<User> notFound = store.findByLoginAndPassport("wrong", "wrong");
-        Assert.assertTrue(notFound.isEmpty());
+        Optional<User> notFound = store.findByLoginAndPassword("wrong", "wrong");
+        Assertions.assertTrue(notFound.isEmpty());
     }
 
-    @After
+    @AfterEach
     public void truncate() {
         Session session = sessionFactory.openSession();
         session.beginTransaction();

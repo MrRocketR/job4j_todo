@@ -27,16 +27,16 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
-            <a class="nav-item nav-link" th:href="@{table}">Tasks</a>
-            <a class="nav-item nav-link" th:href="@{add}">Add Task</a>
-            <a class="nav-item nav-link" th:href="@{new}">Show New Tasks</a>
-            <a class="nav-item nav-link" th:href="@{old}">Show Old Tasks</a>
-            <a class="nav-item nav-link" th:href="@{regUser}">Registration</a>
-            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{loginPage}">
+            <a class="nav-item nav-link" th:href="@{/tasks/table}">Tasks</a>
+            <a class="nav-item nav-link" th:href="@{/tasks/add}">Add Task</a>
+            <a class="nav-item nav-link" th:href="@{/tasks/new}">Show New Tasks</a>
+            <a class="nav-item nav-link" th:href="@{/tasks/old}">Show Old Tasks</a>
+            <a class="nav-item nav-link" th:href="@{/tasks/regUser}">Registration</a>
+            <a class="nav-item nav-link" th:if="${user.name == 'Guest'}" th:href="@{/loginPage}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign In</span>
             </a>
-            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{logout}">
+            <a class="nav-item nav-link" th:if="${user.name != 'Guest'}" th:href="@{/logout}">
                 <span th:text="${user.name}"></span>
                 <span> | Sign Out</span>
             </a>
@@ -51,9 +51,9 @@
         <div class="card-body">
             <span  th:text="${task.description}" ></span>
             <br>
-            <a th:href="@{|formUpdateTask/${task.id}|}"> Update </a>
-            <a th:href="@{|formDeleteTask/${task.id}|}"> Delete </a>
-            <a th:href="@{|formDoneTask/${task.id}|}"> Done </a>
+            <a th:href="@{|update/${task.id}|}"> Update </a>
+            <a th:href="@{|delete/${task.id}|}"> Delete </a>
+            <a th:href="@{|done/${task.id}|}"> Done </a>
 
         </div>
     </div>

@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/tasks")
 public class UserController {
 
     private final UserService userService;
@@ -31,9 +31,9 @@ public class UserController {
     public String registration(Model model, @ModelAttribute User user) {
         Optional<User> regUser = userService.createUser(user);
         if (regUser.isEmpty()) {
-            return "redirect:/regUser?fail=true";
+            return "redirect:/tasks/regUser?fail=true";
         }
-        return "redirect:/tasks";
+        return "redirect:/tasks/table";
     }
 
     @GetMapping("loginPage")
@@ -47,11 +47,11 @@ public class UserController {
         Optional<User> userDb = userService.findUser(user.getLogin(),
                 user.getPassword());
         if (userDb.isEmpty()) {
-            return "redirect:/loginPage?fail=true";
+            return "redirect:/tasks/loginPage?fail=true";
         }
         HttpSession session = request.getSession();
         session.setAttribute("user", userDb.get());
-        return "redirect:/tasks";
+        return "redirect:/tasks/table";
     }
 
     @GetMapping("logout")

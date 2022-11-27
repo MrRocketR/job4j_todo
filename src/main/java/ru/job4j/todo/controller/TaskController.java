@@ -20,7 +20,8 @@ public class TaskController {
         this.service = service;
     }
 
-    @GetMapping("table")
+
+    @GetMapping("/table")
     public String mainPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showAll());
@@ -28,21 +29,21 @@ public class TaskController {
 
     }
 
-    @GetMapping("add")
+    @GetMapping("/add")
     public String addPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         return "add";
 
     }
 
-    @PostMapping("create")
+    @PostMapping("/create")
     public String addPageAction(@ModelAttribute Task task) {
         service.addTask(task);
-        return "redirect:/table";
+        return "redirect:/tasks/table";
     }
 
 
-    @GetMapping("formUpdateTask/{taskId}")
+    @GetMapping("formTask/update/{taskId}")
     public String updatePageForm(Model model, @PathVariable("taskId") int id,
                                  HttpSession session) {
         Optional<Task> taskById = service.findById(id);
@@ -52,7 +53,7 @@ public class TaskController {
     }
 
     @GetMapping("formTask/{taskId}")
-    public String taskForm(Model model,  @PathVariable("taskId") int id,
+    public String taskForm(Model model, @PathVariable("taskId") int id,
                            HttpSession session) {
         SessionChecker.checkSession(model, session);
         Optional<Task> taskById = service.findById(id);
@@ -61,33 +62,33 @@ public class TaskController {
     }
 
 
-    @PostMapping("update")
+    @PostMapping("updateAction")
     public String updateAction(@ModelAttribute Task task, @RequestParam("id") int id) {
         service.updateTask(id, task);
-        return "redirect:/table";
+        return "redirect:/tasks/table";
     }
 
-    @GetMapping("formDeleteTask/{taskId}")
+    @GetMapping("formTask/delete/{taskId}")
     public String deleteAction(@PathVariable("taskId") int id) {
 
         service.deleteTask(id);
-        return "redirect:/table";
+        return "redirect:/tasks/table";
     }
 
-    @GetMapping("formDoneTask/{taskId}")
+    @GetMapping("formTask/done/{taskId}")
     public String doneAction(@PathVariable("taskId") int id) {
         service.setDoneTask(id);
-        return "redirect:/table";
+        return "redirect:/tasks/table";
     }
 
-    @GetMapping("old")
-    public String showDonePage(Model model,  HttpSession session) {
+    @GetMapping("/old")
+    public String showDonePage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showWithStatus(true));
         return "old";
     }
 
-    @GetMapping("new")
+    @GetMapping("/new")
     public String showNewPage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showWithStatus(false));

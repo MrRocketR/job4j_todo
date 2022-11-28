@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-@Component
+ @Component
 public class AuthFilter implements Filter {
 
     private final Set<String> filter = new HashSet<>(Arrays.asList("loginPage",

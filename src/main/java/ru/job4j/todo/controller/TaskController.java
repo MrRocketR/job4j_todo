@@ -21,18 +21,18 @@ public class TaskController {
     }
 
 
-    @GetMapping("/table")
+    @GetMapping("table")
     public String mainPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showAll());
-        return "table";
+        return "tasks/table";
 
     }
 
-    @GetMapping("/add")
+    @GetMapping("add")
     public String addPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
-        return "add";
+        return "tasks/add";
 
     }
 
@@ -49,8 +49,9 @@ public class TaskController {
         Optional<Task> taskById = service.findById(id);
         SessionChecker.checkSession(model, session);
         model.addAttribute("task", taskById.get());
-        return "update";
+        return "tasks/update";
     }
+
 
     @GetMapping("formTask/{taskId}")
     public String taskForm(Model model, @PathVariable("taskId") int id,
@@ -58,7 +59,7 @@ public class TaskController {
         SessionChecker.checkSession(model, session);
         Optional<Task> taskById = service.findById(id);
         model.addAttribute("task", taskById.get());
-        return "task";
+        return "tasks/task";
     }
 
 
@@ -81,18 +82,18 @@ public class TaskController {
         return "redirect:/tasks/table";
     }
 
-    @GetMapping("/old")
+    @GetMapping("old")
     public String showDonePage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showWithStatus(true));
-        return "old";
+        return "tasks/old";
     }
 
-    @GetMapping("/new")
+    @GetMapping("new")
     public String showNewPage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
         model.addAttribute("tasks", service.showWithStatus(false));
-        return "new";
+        return "tasks/new";
     }
 
 

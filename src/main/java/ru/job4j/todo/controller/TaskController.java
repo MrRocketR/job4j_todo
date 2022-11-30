@@ -1,13 +1,16 @@
 package ru.job4j.todo.controller;
 
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.filter.SessionChecker;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -24,7 +27,10 @@ public class TaskController {
     @GetMapping("table")
     public String mainPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
-        model.addAttribute("tasks", service.showAll());
+        List<Task> tasks = service.showAll();
+        model.addAttribute("tasks", tasks);
+       /* User user = (User) session.getAttribute("user");
+        model.addAttribute("user", user);*/
         return "tasks/table";
 
     }
@@ -37,7 +43,9 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String addPageAction(@ModelAttribute Task task) {
+    public String addPageAction(@ModelAttribute Task task, HttpSession session) {
+        User user = (User) session.getAttribute("user");
+        task.setUser(user);
         service.addTask(task);
         return "redirect:/tasks/table";
     }

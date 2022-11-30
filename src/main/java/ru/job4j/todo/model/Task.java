@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @AllArgsConstructor
 @NoArgsConstructor
-public class Task  {
+public class Task {
 
 
     @Id
@@ -24,5 +24,9 @@ public class Task  {
     private String description;
     private LocalDateTime created = LocalDateTime.now();
     private boolean done;
+    @ManyToOne
+    @JoinColumn(name = "user_item")
+    private User user;
+
 
 }

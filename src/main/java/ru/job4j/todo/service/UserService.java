@@ -1,23 +1,22 @@
 package ru.job4j.todo.service;
 
-import org.hibernate.Session;
-import org.hibernate.query.Query;
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.User;
-import ru.job4j.todo.repository.UserStore;
+import ru.job4j.todo.repository.UserRepository;
+
 
 import java.util.Optional;
 @Service
 public class UserService {
- private final UserStore store;
+ private final UserRepository store;
 
-    public UserService(UserStore store) {
+    public UserService(UserRepository store) {
         this.store = store;
     }
 
 
     public Optional<User> createUser(User user) {
-        return store.create(user);
+        return Optional.of(store.create(user));
 
     }
 

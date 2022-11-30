@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.model.User;
-import ru.job4j.todo.repository.UserStore;
 import ru.job4j.todo.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;

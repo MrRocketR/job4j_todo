@@ -2,7 +2,7 @@ package ru.job4j.todo.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.todo.model.Task;
-import ru.job4j.todo.repository.TaskStore;
+import ru.job4j.todo.repository.TaskRepository;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,12 +10,12 @@ import java.util.Optional;
 @Service
 public class TaskService {
 
-    public TaskService(TaskStore store) {
+    public TaskService(TaskRepository store) {
         this.store = store;
     }
 
 
-    private final TaskStore store;
+    private final TaskRepository store;
 
 
     public void addTask(Task task) {
@@ -31,7 +31,7 @@ public class TaskService {
     }
 
     public List<Task> showAll() {
-        return store.showALL();
+        return store.showAll();
     }
 
     public List<Task> showWithStatus(boolean status) {

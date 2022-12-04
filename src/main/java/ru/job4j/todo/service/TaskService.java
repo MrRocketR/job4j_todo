@@ -31,11 +31,11 @@ public class TaskService {
     }
 
     public List<Task> showAll() {
-        return store.showAll();
+        return store.showAllFetchQuery();
     }
 
     public List<Task> showWithStatus(boolean status) {
-        return store.showWithStatus(status);
+        return store.showWitStatusFetchQuery(status);
     }
 
     public void setDoneTask(int id) {

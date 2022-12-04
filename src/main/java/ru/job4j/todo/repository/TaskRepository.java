@@ -19,6 +19,7 @@ public class TaskRepository {
 
     /**
      * Save into DB.
+     *
      * @param task task.
      * @return User with id.
      */
@@ -30,6 +31,7 @@ public class TaskRepository {
 
     /**
      * Update task.
+     *
      * @param task
      */
 
@@ -45,6 +47,7 @@ public class TaskRepository {
 
     /**
      * Delete Task by id.
+     *
      * @param taskId ID
      */
 
@@ -57,6 +60,7 @@ public class TaskRepository {
 
     /**
      * Set Task. done = true by id.
+     *
      * @param taskId ID
      */
 
@@ -84,6 +88,24 @@ public class TaskRepository {
     public List<Task> showWithStatus(boolean status) {
         return crudRepository.query("from Task where done = :fDone order by id", Task.class,
                 Map.of("fDone", status));
+    }
+
+    /***
+     * List of Old/New tasks with priority.
+     * @return List<Tasks>
+     */
+    public List<Task> showWitStatusFetchQuery(boolean status) {
+        return crudRepository.query("from Task t join fetch t.priority"
+                        + " where t.done = :fDone", Task.class, Map.of("fDone", status));
+    }
+
+    /***
+     * Find All with priority
+     @return List<Tasks>
+     */
+
+    public List<Task> showAllFetchQuery() {
+        return crudRepository.query("from Task t join fetch t.priority", Task.class);
     }
 
 

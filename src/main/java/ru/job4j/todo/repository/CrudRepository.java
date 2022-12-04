@@ -70,6 +70,7 @@ public class CrudRepository {
         return tx(command);
     }
 
+
     public <T> T tx(Function<Session, T> command) {
         Session session = sf.openSession();
         try  {
@@ -85,5 +86,7 @@ public class CrudRepository {
             throw e;
         }
     }
+
+
 
 }

@@ -28,5 +28,9 @@ public class Task {
     @JoinColumn(name = "user_item")
     private User user;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "priority_id")
+    private Priority priority;
+
 
 }

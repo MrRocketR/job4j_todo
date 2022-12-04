@@ -32,7 +32,7 @@ public class UserController {
         if (regUser.isEmpty()) {
             return "redirect:/users/regUser?fail=true";
         }
-        return "redirect:/tasks/table";
+        return "tasks/table";
     }
 
     @GetMapping("loginPage")

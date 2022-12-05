@@ -28,7 +28,7 @@ public class Task {
     @JoinColumn(name = "user_item")
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "priority_id")
     private Priority priority;
 

@@ -19,7 +19,6 @@ public class TaskRepository {
 
     /**
      * Save into DB.
-     *
      * @param task task.
      * @return User with id.
      */

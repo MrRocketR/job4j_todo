@@ -1,6 +1,6 @@
 CREATE TABLE tasks (
    id SERIAL PRIMARY KEY,
    description TEXT,
-   created TIMESTAMP,
-   done BOOLEAN
+   created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+   done BOOLEAN DEFAULT false
 );

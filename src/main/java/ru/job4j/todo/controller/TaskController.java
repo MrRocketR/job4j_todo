@@ -1,12 +1,14 @@
 package ru.job4j.todo.controller;
 
-import org.hibernate.Session;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.filter.SessionChecker;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
+import ru.job4j.todo.service.CategoryService;
+import ru.job4j.todo.service.PriorityService;
 import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
@@ -18,9 +20,13 @@ import java.util.Optional;
 @RequestMapping("/tasks")
 public class TaskController {
     private final TaskService service;
+    private final PriorityService priorityService;
+    private final CategoryService categoryService;
 
-    public TaskController(TaskService service) {
+    public TaskController(TaskService service, PriorityService priorityService, CategoryService categoryService) {
         this.service = service;
+        this.priorityService = priorityService;
+        this.categoryService = categoryService;
     }
 
 
@@ -29,8 +35,6 @@ public class TaskController {
         SessionChecker.checkSession(model, session);
         List<Task> tasks = service.showAll();
         model.addAttribute("tasks", tasks);
-       /* User user = (User) session.getAttribute("user");
-        model.addAttribute("user", user);*/
         return "tasks/table";
 
     }
@@ -38,6 +42,8 @@ public class TaskController {
     @GetMapping("add")
     public String addPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
+        model.addAttribute("categories", categoryService.getCategories());
+        model.addAttribute("priorities", priorityService.findAll());
         return "tasks/add";
 
     }

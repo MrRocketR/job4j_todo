@@ -1,7 +1,9 @@
 package ru.job4j.todo.service;
 
 import org.springframework.stereotype.Service;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
+import ru.job4j.todo.repository.CategoryRepository;
 import ru.job4j.todo.repository.TaskRepository;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class TaskService {
 
 
     private final TaskRepository store;
+
 
 
     public void addTask(Task task) {
@@ -45,4 +48,6 @@ public class TaskService {
     public Optional<Task> findById(int id) {
         return store.findById(id);
     }
+
+
 }

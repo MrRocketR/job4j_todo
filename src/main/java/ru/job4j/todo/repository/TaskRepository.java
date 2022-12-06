@@ -24,7 +24,7 @@ public class TaskRepository {
      */
 
     public Task create(Task task) {
-        crudRepository.run(session -> session.persist(task));
+        crudRepository.run(session -> session.save(task));
         return task;
     }
 

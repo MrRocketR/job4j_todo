@@ -17,7 +17,7 @@ public class UserRepository {
      * @return User with id.
      */
     public  User create(User user) {
-        crudRepository.run(session -> session.persist(user));
+        crudRepository.run(session -> session.save(user));
         return user;
     }
 

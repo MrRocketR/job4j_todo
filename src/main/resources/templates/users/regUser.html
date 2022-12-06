@@ -46,9 +46,19 @@
             <label for="login"> Login
               <input type="text" class="form-control" name="login" id="login">
             </label>
-            <label for="password"> Password
+            <label for="password">Password
               <input type="text" class="form-control" name="password" id="password">
             </label>
+            <div class="form-group">
+              <label for="zone">Select Time Zone</label>
+              <select class="form-control" id="zone" name="zone" multiple="multiple">
+                <option th:each="zone : ${zones}"
+                        th:value="${zone}"
+                        th:text="${zone}">
+                </option>
+              </select>
+            </div>
+
           </div>
           <div th:if="${fail}" class="alert alert-danger" role="alert">
             A user with this name already exists!

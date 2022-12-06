@@ -5,10 +5,11 @@ import ru.job4j.todo.model.User;
 import ru.job4j.todo.repository.UserRepository;
 
 
-import java.util.Optional;
+import java.util.*;
+
 @Service
 public class UserService {
- private final UserRepository store;
+    private final UserRepository store;
 
     public UserService(UserRepository store) {
         this.store = store;
@@ -22,5 +23,9 @@ public class UserService {
 
     public Optional<User> findUser(String login, String password) {
         return store.findByLoginAndPassword(login, password);
+    }
+
+    public List<String> zonesList() {
+        return Arrays.asList(TimeZone.getAvailableIDs());
     }
 }

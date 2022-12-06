@@ -23,6 +23,7 @@ public class UserController {
     @GetMapping("regUser")
     public String regUser(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
         model.addAttribute("fail", fail != null);
+        model.addAttribute("zones", userService.zonesList());
         return "users/regUser";
     }
 
@@ -32,7 +33,7 @@ public class UserController {
         if (regUser.isEmpty()) {
             return "redirect:/users/regUser?fail=true";
         }
-        return "tasks/table";
+        return "redirect:/tasks/table";
     }
 
     @GetMapping("loginPage")

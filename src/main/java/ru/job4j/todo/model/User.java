@@ -28,4 +28,6 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Task> taskList;
+    @Column(name = "user_zone")
+    private String zone;
 }

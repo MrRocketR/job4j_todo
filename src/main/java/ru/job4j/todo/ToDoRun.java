@@ -25,30 +25,13 @@ public class ToDoRun {
             UserRepository userRepository = new UserRepository(new CrudRepository(sf));
             TaskRepository taskRepository = new TaskRepository(new CrudRepository(sf));
             User user = userRepository.findByLoginAndPassword("test", "test").get();
-            // Priority priority = new Priority(2, "normal", 2);
-            // Task task = new Task();
-            // task.setUser(user);
-            // task.setPriority(priority);
-            // task.setDescription("Tested");
-            //   task.getCategories().add(new Category(1, "Housework"));
-            //   var stored = taskRepository.create(task);
             var store = taskRepository.showAll();
             for (Task t : store) {
                 System.out.println(t.getDescription());
                 System.out.println(t.getCategories());
 
             }
-            //Task task = new Task();
-            //task.setUser();
-            // var stored = listOf("from Task", Task.class, sf);
-            // for (Task task : stored) {
-            //     System.out.println(task.getPriority());
-            //  }
-            /*CategoryRepository cate = new CategoryRepository(new CrudRepository(sf));
-             var stored = cate.categories();
-            for (Category cycle : stored) {
-                System.out.println(cycle.getTaskList());
-            }*/
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {

@@ -12,10 +12,8 @@ import ru.job4j.todo.service.PriorityService;
 import ru.job4j.todo.service.TaskService;
 
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.TimeZone;
+import java.util.*;
+import java.util.stream.Collectors;
 
 
 @Controller
@@ -51,9 +49,16 @@ public class TaskController {
     }
 
     @PostMapping("/create")
-    public String addPageAction(@ModelAttribute Task task, HttpSession session) {
+    public String addPageAction(@ModelAttribute Task task,
+                                @RequestParam(value = "taskCategories", required = false) List<Integer> taskCategories,
+                                HttpSession session) {
         User user = (User) session.getAttribute("user");
         task.setUser(user);
+        task.setCategories(
+                taskCategories.stream()
+                        .map(catId -> categoryService.findById(catId)
+                                .orElseThrow(() -> new NoSuchElementException("Category is not exists")))
+                        .collect(Collectors.toList()));
         service.addTask(task);
         return "redirect:/tasks/table";
     }

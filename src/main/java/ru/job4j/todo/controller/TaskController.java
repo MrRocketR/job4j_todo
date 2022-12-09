@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.todo.filter.SessionChecker;
+import ru.job4j.todo.model.Category;
 import ru.job4j.todo.model.Task;
 import ru.job4j.todo.model.User;
 import ru.job4j.todo.service.CategoryService;
@@ -55,11 +56,9 @@ public class TaskController {
                                 HttpSession session) {
         User user = (User) session.getAttribute("user");
         task.setUser(user);
-        task.setCategories(
-                taskCategories.stream()
-                        .map(catId -> categoryService.findById(catId)
-                                .orElseThrow(() -> new NoSuchElementException("Category is not exists")))
-                        .collect(Collectors.toList()));
+        Map<Integer, Category> categoryMap = categoryService.getMapOfCategories();
+        task.setCategories(taskCategories.stream()
+                .map(categoryMap::get).collect(Collectors.toList()));
         service.addTask(task);
         return "redirect:/tasks/table";
     }

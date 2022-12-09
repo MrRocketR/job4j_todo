@@ -51,7 +51,7 @@
             </label>
             <div class="form-group">
               <label for="zone">Select Time Zone</label>
-              <select class="form-control" id="zone" name="zone" multiple="multiple">
+              <select class="form-control" id="zone" name="zone">
                 <option th:each="zone : ${zones}"
                         th:value="${zone}"
                         th:text="${zone}">

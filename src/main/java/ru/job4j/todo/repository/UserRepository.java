@@ -6,6 +6,8 @@ import ru.job4j.todo.model.User;
 
 import java.util.Map;
 import java.util.Optional;
+import java.util.TimeZone;
+
 @Repository
 @AllArgsConstructor
 public class UserRepository {
@@ -17,6 +19,9 @@ public class UserRepository {
      * @return User with id.
      */
     public  User create(User user) {
+        if (user.getZone() == null) {
+            user.setZone(TimeZone.getDefault().toZoneId().toString());
+        }
         crudRepository.run(session -> session.save(user));
         return user;
     }

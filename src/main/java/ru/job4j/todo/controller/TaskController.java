@@ -33,7 +33,8 @@ public class TaskController {
     @GetMapping("table")
     public String mainPageForm(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
-        List<Task> tasks = service.showAll();
+        User user = (User) session.getAttribute("user");
+        List<Task> tasks = service.showAllWithTimeZone(user);
         model.addAttribute("tasks", tasks);
         return "tasks/table";
 
@@ -106,14 +107,18 @@ public class TaskController {
     @GetMapping("old")
     public String showDonePage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
-        model.addAttribute("tasks", service.showWithStatus(true));
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("tasks",
+                service.showWithStatusAndTimeZone(true, user));
         return "tasks/old";
     }
 
     @GetMapping("new")
     public String showNewPage(Model model, HttpSession session) {
         SessionChecker.checkSession(model, session);
-        model.addAttribute("tasks", service.showWithStatus(false));
+        User user = (User) session.getAttribute("user");
+        model.addAttribute("tasks",
+                service.showWithStatusAndTimeZone(false, user));
         return "tasks/new";
     }
 

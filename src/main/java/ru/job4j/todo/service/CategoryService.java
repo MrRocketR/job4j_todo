@@ -27,6 +27,9 @@ public class CategoryService {
                 .collect(Collectors.toMap(Category::getId, category -> category));
 
     }
+    public List<Category> getCategoriesInQuery(List<Integer> ids) {
+        return categoryRepository.queryIn(ids);
+    }
     public List<Category> getCategories() {
         return categoryRepository.categories();
     }

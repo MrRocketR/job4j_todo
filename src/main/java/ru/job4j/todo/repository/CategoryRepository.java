@@ -21,6 +21,11 @@ public class CategoryRepository {
         return crudRepository.query("from Category order by id", Category.class);
     }
 
+    public List<Category> queryIn(List<Integer> ids) {
+        List<Category> categories = crudRepository.query("From Category c where c.id IN :ids", Category.class,
+                Map.of("ids", ids));
+        return  categories;
+    }
     public Optional<Category> findById(int id) {
         Optional<Category> category = crudRepository.optional("from Category where id = :fId", Category.class,
                 Map.of("fId", id));

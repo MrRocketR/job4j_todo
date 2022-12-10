@@ -56,9 +56,7 @@ public class TaskController {
                                 HttpSession session) {
         User user = (User) session.getAttribute("user");
         task.setUser(user);
-        Map<Integer, Category> categoryMap = categoryService.getMapOfCategories();
-        task.setCategories(taskCategories.stream()
-                .map(categoryMap::get).collect(Collectors.toList()));
+        task.setCategories(categoryService.getCategoriesInQuery(taskCategories));
         service.addTask(task);
         return "redirect:/tasks/table";
     }
